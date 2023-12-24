@@ -9,7 +9,7 @@ It is built using the ASP.NET MVC framework, C#, and an Oracle database, emphasi
 - CRUD operations on tasks
 - AJAX-driven list updates and transaction posting
 - Responsive and user-friendly interface
-- Entity Framework for data access (optional)
+- Entity Framework for data access 
 - Client-side validation
 
 ## Technologies
