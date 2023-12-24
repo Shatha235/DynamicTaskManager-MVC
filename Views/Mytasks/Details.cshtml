@@ -1,0 +1,30 @@
+﻿@model TaskProject.Models.Mytask
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<main>
+    <div class="container">
+        <article class="task-card">
+            <header class="task-header">
+                <h5 class="task-title">@Model.Taskname<span class="creation-date">- Created: @Model.Createddate.Value.ToString("MM/dd/yyyy")</span></h5>
+            </header>
+            <p class="task-description">@Model.Taskdescription</p>
+            <footer class="task-meta">
+                <div class="due-priority">
+                    <span class="due-date">Due: @Model.Duedate.Value.ToString("MM/dd/yyyy")</span>
+                    <span class="priority">Priority: @Model.Priority</span>
+                </div>
+            </footer>
+            <div class="task-actions">
+                <a href="@Url.Action("Edit", new { id = Model.Taskid })" class="action-edit">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <a href="@Url.Action("Index")" class="action-back">
+                    <i class="fas fa-arrow-left"></i> Back to List
+                </a>
+            </div>
+        </article>
+    </div>
+</main>

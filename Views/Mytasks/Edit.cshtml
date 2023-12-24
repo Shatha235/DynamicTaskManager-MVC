@@ -1,0 +1,76 @@
+﻿@model TaskProject.Models.Mytask
+
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<div class="card-wrapper">
+    <div class="card">
+        <div class="card-header">
+            <h5>@ViewData["Title"]</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Taskid" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="Taskname" class="control-label">Task Name</label>
+                    <input asp-for="Taskname" class="form-control" placeholder="Enter task name" />
+                    <span asp-validation-for="Taskname" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Taskdescription" class="control-label">Description</label>
+                    <textarea asp-for="Taskdescription" class="form-control" rows="3" placeholder="Task details"></textarea>
+                    <span asp-validation-for="Taskdescription" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Duedate" class="control-label">Due Date</label>
+                    <input asp-for="Duedate" type="date" class="form-control" />
+                    <span asp-validation-for="Duedate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Priority" class="control-label">Priority</label>
+                    <select asp-for="Priority" class="form-control">
+                        <option value="">Select priority</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                    <span asp-validation-for="Priority" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Status" class="control-label">Status</label>
+                    <select asp-for="Status" class="form-control">
+                        <option value="">Select status</option>
+                        <option value="To Do">To Do</option>
+                        <option value="Doing">Doing</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Createddate" class="control-label">Creation Date</label>
+                    <input asp-for="Createddate" type="date" class="form-control" />
+                    <span asp-validation-for="Createddate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn" type="submit">Save</button>
+                    <a class="btn" asp-action="Index">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<TaskProject.Models.Mytask>
+
+@{
+    ViewData["Title"] = "Task Overview";
+    var groupedTasks = Model.OrderByDescending( u=>u.Status).GroupBy(task => task.Status);
+}
+
+
+<main>
+    <div class="container">
+        @foreach (var group in groupedTasks)
+        {
+            <section class="task-status-group" id="status-group-@group.Key" col-4>
+                <h5 class="status-title">@group.Key</h5> 
+                @foreach (var item in group)
+                {
+                    <article class="task-card" id="task-@item.Taskid">
+                        <h5 class="task-title">@item.Taskname</h5>
+                        <p class="task-description">
+                            <span class="description-text">
+                                @if (item.Taskdescription.Length > 100)
+                                {
+                                    @Html.Raw(item.Taskdescription.Substring(0, 100) + "...")
+                                }
+                                else
+                                {
+                                    @Html.Raw(item.Taskdescription)
+                                }
+                            </span>
+                            @if (item.Taskdescription.Length > 100)
+                            {
+                                <a href="javascript:void(0)"
+                                   class="read-more"
+                                   data-fulltext="@item.Taskdescription"
+                                   onclick="showFullDescription(this)">Read More</a>
+                            }
+                        </p>
+                        <footer class="task-meta">
+                            <div class="due-priority">
+                                <span class="due-date">Due: @item.Duedate.Value.ToString("MM/dd/yyyy")</span>
+                                <span class="priority">Priority: @item.Priority</span>
+                            </div>
+                        </footer>
+                        <div class="task-actions">
+                            <a href="@Url.Action("Edit", new { id = item.Taskid })" class="action-edit">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a href="@Url.Action("Details", new { id = item.Taskid })" class="action-details">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                            <a href="javascript:void(0)" onclick="showModal(@item.Taskid, '@item.Taskname')" class="action-delete">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+
+                        </div>
+                    </article>
+                }
+            </section>
+        }
+    </div>
+</main>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Delete Confirmation</h5>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete this task?</p>
+        </div>
+        <div class="modal-footer">
+            <button id="confirmDelete" class="btn btn-danger">Confirm</button>
+            <button id="cancelDelete" class="btn btn-secondary">Cancel</button>
+        </div>
+    </div>
+</div>
